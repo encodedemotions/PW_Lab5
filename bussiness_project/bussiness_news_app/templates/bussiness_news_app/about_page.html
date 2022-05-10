@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+{% load static %}
+<head>
+<title>Bussiness News</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" media="screen,projection" type="text/css" href="{% static 'css/main.css' %}" />
+<link rel="stylesheet" media="screen,projection" type="text/css" href="{% static 'css/skin.css' %}" />
+<script type="text/javascript" src="{% static 'js/cufon-yui.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/font.font.js' %}"></script>
+<script type="text/javascript">
+Cufon.replace('h1, h2, h3, h4, h5, h6', {
+    hover: true
+});
+</script>
+</head>
+
+<body>
+<!-- START PAGE SOURCE -->
+<div class="main">
+  <div id="header" class="box">
+    <h1 id="logo">Bussiness<span>News</span></h1>
+    <ul id="nav">
+      <li class="current"><a href="http://127.0.0.1:8000/">Homepage</a></li>
+      <li class="current"><a href="http://127.0.0.1:8000/logout/">Log out</a></li>
+    </ul>
+  </div>
+  <div>
+    <center> <h2> ABOUT FORM: </h2> </center>
+    <div id="section" class="box" style="width: 640px; height: auto; margin: 0 auto; padding: 10px; position: relative;">
+        <div id="content">
+            <ul class="articles box" ></ul>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <div style="padding: 25px; background-color: lightblue;">
+
+                    <h4><label>Author: </label></h4>
+                    <br>
+                    <input type="text" id="author" name="author" style="width:150px; height:30px;" value="{{ user }}" readonly><br><br>
+
+                    <h4><label>Author: </label></h4>
+                    <br>
+                    <input type="text" id="fullname" name="fullname" style="width:150px; height:30px;" value="{{ user.first_name }} {{ user.last_name }}" readonly><br><br>
+
+                    <h4><label>Description: </label></h4>
+                    <br>
+                    <textarea rows = "10" cols = "85" name = "description">
+
+                    </textarea><br>
+
+                    <h4><label>Select an image for your profile: </label></h4>
+                    <div>
+                        <label for="image">Select image:</label>
+                        <input type="file" id="image" name="image" accept="image/*">
+                    </div>
+
+            		<button type="submit" style="background-color: #89CFF0; width: 95%; color: blue;
+        										 padding: 15px; margin: 10px 0px; border: none; cursor: pointer;">Submit</button>
+
+				</div>
+            </form>
+        </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

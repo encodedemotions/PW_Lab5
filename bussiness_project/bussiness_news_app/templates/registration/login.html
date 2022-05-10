@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+{% load static %}
+
+<head>
+<title>Bussiness News</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" media="screen,projection" type="text/css" href="{% static 'css/main.css' %}" />
+<link rel="stylesheet" media="screen,projection" type="text/css" href="{% static 'css/skin.css' %}" />
+<script type="text/javascript" src="{% static 'js/cufon-yui.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/font.font.js' %}"></script>
+<script type="text/javascript">
+Cufon.replace('h1, h2, h3, h4, h5, h6', {
+    hover: true
+});
+</script>
+</head>
+
+<body>
+<div class="main">
+  <div id="header" class="box">
+    <h1 id="logo">Bussiness<span>News</span></h1>
+    <ul id="nav">
+      <li class="current"><a href="http://127.0.0.1:8000/">Homepage</a></li>
+      <li class="current"><a href="http://127.0.0.1:8000/login/">Sign in</a></li>
+    </ul>
+  </div>
+  <div>
+	<center> <h2> LOGIN: </h2> </center>
+    <div id="section" class="box" style="width: 640px; height: auto; margin: 0 auto; padding: 10px; position: relative;">
+        <div id="content">
+            <!--<ul class="articles box" ></ul>-->
+            <form method="post">
+                {% csrf_token %}
+
+				<div style="padding: 25px; background-color: lightblue;">
+            		<h4><label>Username : </label></h4>
+            		<input type="text" placeholder="Enter username" name="username" style="width: 95%; margin: 8px 0; padding: 12px 20px;
+        													  display: inline-block; border: 2px white;
+        													  box-sizing: border-box;">
+					<h4><label>Password : </label></h4>
+            		<input type="password" placeholder="Enter password" name="password" style="width: 95%; margin: 8px 0; padding: 12px 20px;
+        													      display: inline-block; border: 2px white;
+        													      box-sizing: border-box;">
+					<div>
+						<p><a href="http://127.0.0.1:8000/register/">Don't have an account?</a></p>
+					</div>
+            		<button type="submit" style="background-color: #89CFF0; width: 95%; color: blue;
+        										 padding: 15px; margin: 10px 0px; border: none; cursor: pointer;">Login</button>
+
+				</div>
+            </form>
+        </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

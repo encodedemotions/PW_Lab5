@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+{% load static %}
+<head>
+<title>Bussiness News</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" media="screen,projection" type="text/css" href="{% static 'css/main.css' %}" />
+<link rel="stylesheet" media="screen,projection" type="text/css" href="{% static 'css/skin.css' %}" />
+<script type="text/javascript" src="{% static 'js/cufon-yui.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/font.font.js' %}"></script>
+<script type="text/javascript">
+Cufon.replace('h1, h2, h3, h4, h5, h6', {
+    hover: true
+});
+</script>
+</head>
+{% csrf_token %}
+<body>
+<!-- START PAGE SOURCE -->
+<div class="main">
+  <div id="header" class="box">
+    <h1 id="logo">Bussiness <span>News</span></h1>
+    <ul id="nav">
+      <li class="current"><a href="http://127.0.0.1:8000/">Homepage</a></li>
+      {% if user.is_staff %}
+        <li class="current"><a href="http://127.0.0.1:8000/edit/">Editor page</a></li>
+        <li class="current"><a href="http://127.0.0.1:8000/about/">About </a></li>
+      {% endif %}
+
+      {% if not is_authenticated %}
+        <li class="current"><a href="http://127.0.0.1:8000/login/">Sign in</a></li>
+      {% else %}
+        <li class="current"><a href="http://127.0.0.1:8000/logout/">Log out</a></li>
+      {% endif %}
+    </ul>
+  </div>
+  <div id="section" class="box">
+    <div id="content">
+      <ul class="articles box">
+
+        {% for article in articles %}
+          {% if not is_authenticated %}
+            {% if article.article_permission == 'public' %}
+              <li>
+              <h2><a href="#">{{ article.title }}</a></h2>
+              <div class="article-info box">
+                <p class="f-left">{{ article.date }} | Posted by <a href="#">{{ article.author }}</a></p>
+              </div>
+              <p><img src="media/{{ article.image }}" alt="" style="max-width: 100%;"/></p>
+                <p>{{ article.article }}</p>
+              </li>
+            {% endif %}
+          {% endif %}
+          {% if is_authenticated %}
+            <li>
+            <h2><a href="#">{{ article.title }}</a></h2>
+            <div class="article-info box">
+              <p class="f-left">{{ article.date }} | Posted by <a href="#">{{ article.author }}</a></p>
+            </div>
+            <p><img src="media/{{ article.image }}" alt="" style="max-width: 100%;"/></p>
+              <p>{{ article.article }}</p>
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </div>
+
+    <div id="aside">
+      <form action="http://127.0.0.1:8000/search/" method="get" id="search">
+        {% csrf_token %}
+        <p>
+          <input type="text" size="20" class="input-text" value="Search our website" onfocus="if(this.value=='Search our website') this.value=''" />
+          <input type="submit" value="Search" class="input-submit" />
+        </p>
+      </form>
+
+      <h3>Authors</h3>
+      {% if is_authenticated %}
+        {% if authors_information.first is not None %}
+          {% for author_information in authors_information %}
+
+            <p class="box"> <img src="media/{{ author_information.image }}" alt="" class="f-left" />
+              Fullname: {{ author_information.fullname }}<br />
+              Description: {{ author_information.description }}
+          {% endfor %}
+        {% else %}
+            <p>Nothing to show...</p>
+        {% endif %}
+      {% else %}
+            <p>Nothing to show...</p>
+      {% endif %}
+    </div>
+  </div>
+
+</div>
+<div id="footer">
+  <div class="main box">
+    <p class="f-right t-right">Design by <a href="https://www.worldhistory.org/disambiguation/greek/">Greek</a></p>
+    <p class="f-left">Copyright &copy;&nbsp;2022 <a href="#">Bussiness News</a></p>
+  </div>
+</div>
+<script type="text/javascript">Cufon.now();</script>
+<!-- END PAGE SOURCE -->
+</body>
+</html>
